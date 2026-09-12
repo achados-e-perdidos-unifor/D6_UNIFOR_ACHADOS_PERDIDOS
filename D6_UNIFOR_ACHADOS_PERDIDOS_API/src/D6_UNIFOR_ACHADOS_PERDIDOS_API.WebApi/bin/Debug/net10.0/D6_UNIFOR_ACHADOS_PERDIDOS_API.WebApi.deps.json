@@ -17,6 +17,14 @@
           "D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.dll": {}
         }
       },
+      "Dapper/2.1.79": {
+        "runtime": {
+          "lib/net10.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.79.29349"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/10.0.3": {
         "dependencies": {
           "Microsoft.OpenApi": "2.7.5"
@@ -28,11 +36,38 @@
           }
         }
       },
+      "Microsoft.Extensions.Configuration.Abstractions/11.0.0-rc.1.26425.128": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "11.0.0-rc.1.26425.128"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.42628"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/11.0.0-rc.1.26425.128": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.42628"
+          }
+        }
+      },
       "Microsoft.OpenApi/2.7.5": {
         "runtime": {
           "lib/net8.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "2.7.5.0",
             "fileVersion": "2.7.5.0"
+          }
+        }
+      },
+      "Npgsql/10.0.3": {
+        "runtime": {
+          "lib/net10.0/Npgsql.dll": {
+            "assemblyVersion": "10.0.3.0",
+            "fileVersion": "10.0.3.0"
           }
         }
       },
@@ -94,7 +129,11 @@
       },
       "D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/1.0.0": {
         "dependencies": {
-          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain": "1.0.0"
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Application": "1.0.0",
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain": "1.0.0",
+          "Dapper": "2.1.79",
+          "Microsoft.Extensions.Configuration.Abstractions": "11.0.0-rc.1.26425.128",
+          "Npgsql": "10.0.3"
         },
         "runtime": {
           "D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.dll": {
@@ -111,6 +150,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Dapper/2.1.79": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8YijbzgTfmqmQOnVNorYM6K++pxqnW3nJ4aC1sRHzxUA2CcuoJ9gsTem3kgBnPRMc38zZHl4Esb6hAezXIEEuw==",
+      "path": "dapper/2.1.79",
+      "hashPath": "dapper.2.1.79.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.OpenApi/10.0.3": {
       "type": "package",
       "serviceable": true,
@@ -118,12 +164,33 @@
       "path": "microsoft.aspnetcore.openapi/10.0.3",
       "hashPath": "microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512"
     },
+    "Microsoft.Extensions.Configuration.Abstractions/11.0.0-rc.1.26425.128": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rcqTkPeXKrkk4zueVS3RGyyLgETH7etqXd1RiCytau1imfpiVuzFZMhZgRE3ZzsKjEosyok7qnV4NynelmW0Xw==",
+      "path": "microsoft.extensions.configuration.abstractions/11.0.0-rc.1.26425.128",
+      "hashPath": "microsoft.extensions.configuration.abstractions.11.0.0-rc.1.26425.128.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/11.0.0-rc.1.26425.128": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8BXcyho27KQ4a7P/MExlEgRukTp1soBbBs/ybBDyiJvtH4GxxojaePY45/cv9mDV+zxvEfK0qWrzmR27gJ4TEA==",
+      "path": "microsoft.extensions.primitives/11.0.0-rc.1.26425.128",
+      "hashPath": "microsoft.extensions.primitives.11.0.0-rc.1.26425.128.nupkg.sha512"
+    },
     "Microsoft.OpenApi/2.7.5": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-0FA67RSnRM4tcBKqiqVu/HPdZ9+QOKbmeRjxRUGTCjPU4C0bmUhd97Dso7Yild5P7nOV6GxJ2xrK0Kv/O9xp0w==",
       "path": "microsoft.openapi/2.7.5",
       "hashPath": "microsoft.openapi.2.7.5.nupkg.sha512"
+    },
+    "Npgsql/10.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w==",
+      "path": "npgsql/10.0.3",
+      "hashPath": "npgsql.10.0.3.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/10.2.3": {
       "type": "package",
