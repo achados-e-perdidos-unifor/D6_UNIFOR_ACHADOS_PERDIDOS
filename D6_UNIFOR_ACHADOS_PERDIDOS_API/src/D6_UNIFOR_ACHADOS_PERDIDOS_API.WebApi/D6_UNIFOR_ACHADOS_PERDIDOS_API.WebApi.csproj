@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj" />
+    <ProjectReference Include="..\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/1.0.0": {
+        "runtime": {
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

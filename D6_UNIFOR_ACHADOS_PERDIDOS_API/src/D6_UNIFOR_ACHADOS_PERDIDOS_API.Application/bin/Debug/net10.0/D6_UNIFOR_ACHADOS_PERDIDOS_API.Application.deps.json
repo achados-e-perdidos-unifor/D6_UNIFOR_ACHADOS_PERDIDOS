@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/1.0.0": {
+        "dependencies": {
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain": "1.0.0"
+        },
+        "runtime": {
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.dll": {}
+        }
+      },
+      "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/1.0.0": {
+        "runtime": {
+          "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

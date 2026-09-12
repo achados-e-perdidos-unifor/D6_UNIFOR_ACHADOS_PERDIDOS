@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj" />
+    <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj" />
+    <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj" />
+    <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj" />
+  </Folder>
+</Solution>
