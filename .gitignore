@@ -1,0 +1,270 @@
+# ============================================================
+# OS / Sistema
+# ============================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================================
+# .NET / C#
+# ============================================================
+
+# Build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+arm/
+arm64/
+
+# Test results
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+.nuget/
+
+# ASP.NET
+wwwroot/lib/
+
+# .NET generated files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+*.pdb
+*.cache
+
+# Publish
+publish/
+wwwroot/dist/
+
+# Entity Framework
+*.efschema
+*.efschema.json
+
+# ============================================================
+# Visual Studio
+# ============================================================
+
+.vs/
+.vscode/
+
+# Visual Studio files
+*.csproj.user
+*.sln.iml
+
+# ============================================================
+# JetBrains / Rider
+# ============================================================
+
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# Rider generated files
+**/.idea/
+**/*.sln.iml
+
+# ============================================================
+# VS Code
+# ============================================================
+
+.vscode/
+*.code-workspace
+
+# ============================================================
+# Node / JavaScript / TypeScript
+# ============================================================
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+.angular/
+.parcel-cache/
+.turbo/
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager
+.pnpm-store/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# React / Vite
+.vite/
+
+# ============================================================
+# Frontend environment files
+# ============================================================
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Keep example environment files
+!.env.example
+!.env.template
+
+# ============================================================
+# Backend environment files
+# ============================================================
+
+# ASP.NET local configuration
+appsettings.Local.json
+appsettings.Development.Local.json
+appsettings.*.Local.json
+
+# Secrets
+secrets.json
+secrets.*.json
+
+# Keep example configuration
+!appsettings.example.json
+
+# ============================================================
+# Docker
+# ============================================================
+
+# Docker local overrides
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Docker volumes / local data
+docker-data/
+docker-volumes/
+*.tar
+*.tar.gz
+
+# ============================================================
+# Databases / Local data
+# ============================================================
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# PostgreSQL local dumps
+*.dump
+*.backup
+
+# Local database data
+data/
+database/data/
+
+# ============================================================
+# Logs
+# ============================================================
+
+*.log
+logs/
+log/
+
+# ============================================================
+# Temporary files
+# ============================================================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.bak
+*.orig
+
+# ============================================================
+# Certificates / Keys
+# ============================================================
+
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Allow explicitly committed development certificate examples
+!certs/example/*.pem
+
+# ============================================================
+# Local configuration
+# ============================================================
+
+*.local
+*.local.json
+
+# ============================================================
+# Frontend testing
+# ============================================================
+
+playwright-report/
+blob-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# ============================================================
+# IDE / Editor
+# ============================================================
+
+.history/
+.project
+.classpath
+.settings/
+
+# ============================================================
+# Misc
+# ============================================================
+
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+Icon?
+ehthumbs.db
