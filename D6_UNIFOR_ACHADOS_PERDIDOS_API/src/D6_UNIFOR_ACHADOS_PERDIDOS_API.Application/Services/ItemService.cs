@@ -12,8 +12,9 @@ public class ItemService : IItemService
         _itemRepository = itemRepository;
     }
     
-    public Task<IEnumerable<ItemEntity>> GetAllItemsAsync()
+    public async Task<IEnumerable<ItemEntity>> GetAllItemsAsync()
     {
-        throw new NotImplementedException();
+        var items = await _itemRepository.GetAllItemsAsync();
+        return items;
     }
 }
