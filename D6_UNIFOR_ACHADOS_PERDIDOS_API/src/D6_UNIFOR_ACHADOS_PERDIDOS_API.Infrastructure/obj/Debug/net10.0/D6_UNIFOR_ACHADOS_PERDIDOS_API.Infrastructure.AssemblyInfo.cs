@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d8580785466a6f0c18e7974c1a8cbe0072b16580")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30ec28b54c87f4591e6a163165643549dbbc1391")]
 [assembly: System.Reflection.AssemblyProductAttribute("D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

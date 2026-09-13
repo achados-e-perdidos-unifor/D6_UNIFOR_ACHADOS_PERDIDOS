@@ -1,6 +1,7 @@
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.DTOs;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Interfaces;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Enums;
 
 namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Services;
 
@@ -27,24 +28,23 @@ public class ItemService : IItemService
 
     public async Task UploadFoundItemAsync(UploadItemDto item)
     {
-        var itemEntity = new ItemEntity
-        {
-            Nome = item.Nome,
-            Descricao = item.Descricao,
-            Categoria = item.Categoria,
-            LocalEncontro = item.LocalEncontro,
-            DataEncontro = item.DataEncontro,
-            Status = item.Status,
-            NomeResponsavel = item.NomeResponsavel,
-            ContatoResponsavel = item.ContatoResponsavel
-        };
+        var itemEntity = new ItemEntity(
+            nome: item.Nome,
+            descricao: item.Descricao,
+            categoria: item.Categoria,
+            localEncontro: item.LocalEncontro,
+            dataEncontro: item.DataEncontro,
+            statusId: (int)ItemStatus.ENCONTRADO,
+            nomeResponsavel: item.NomeResponsavel,
+            contatoResponsavel: item.ContatoResponsavel
+        );
 
         await _itemRepository.UploadFoundItemAsync(itemEntity);
     }
 
-    public async Task UpdateItemStatusAsync(int Id, string Status)
+    public async Task UpdateItemStatusAsync(int Id, int StatusId)
     {
-        await _itemRepository.UpdateItemStatusAsync(Id, Status);
+        await _itemRepository.UpdateItemStatusAsync(Id, StatusId);
     }
 
     public async Task RemoveItemAsync(int Id)

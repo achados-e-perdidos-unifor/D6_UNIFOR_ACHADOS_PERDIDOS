@@ -7,6 +7,6 @@ public interface IItemRepository
     Task<IEnumerable<ItemEntity>> ListFoundItemsAsync();
     Task<IEnumerable<ItemEntity>> ListLostItemsAsync();
     Task UploadFoundItemAsync(ItemEntity item);
-    Task UpdateItemStatusAsync(int Id, string Status);
-    Task RemoveItemAsync(int Id);
+    Task UpdateItemStatusAsync(int Id, int StatusId);
+    Task RemoveItemAsync(int StatusId);
 }

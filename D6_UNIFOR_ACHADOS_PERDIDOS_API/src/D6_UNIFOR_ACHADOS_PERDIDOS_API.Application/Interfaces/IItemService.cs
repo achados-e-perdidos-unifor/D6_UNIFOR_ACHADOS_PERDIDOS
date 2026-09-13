@@ -8,6 +8,6 @@ public interface IItemService
     Task<IEnumerable<ItemEntity>> ListFoundItemsAsync();
     Task<IEnumerable<ItemEntity>> ListLostItemsAsync();
     Task UploadFoundItemAsync(UploadItemDto item);
-    Task UpdateItemStatusAsync(int Id, string Status);
+    Task UpdateItemStatusAsync(int Id, int StatusId);
     Task RemoveItemAsync(int Id);
 }

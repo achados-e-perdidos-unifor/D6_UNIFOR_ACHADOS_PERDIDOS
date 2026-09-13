@@ -1,26 +1,61 @@
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Enums;
+
 namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 
 public class ItemEntity
 {
-    public long? Id { get; set; }
+    public long? Id { get; private set; }
 
-    public string Nome { get; set; } = string.Empty;
+    public string Nome { get; private set; }
 
-    public string? Descricao { get; set; }
+    public string? Descricao { get; private set; }
 
-    public string? Categoria { get; set; }
+    public string? Categoria { get; private set; }
 
-    public string? LocalEncontro { get; set; }
+    public string? LocalEncontro { get; private set; }
 
-    public DateTime DataEncontro { get; set; }
+    public DateTime DataEncontro { get; private set; }
 
-    public string Status { get; set; } = "ENCONTRADO";
+    public int StatusId { get; private set; }
 
-    public string? NomeResponsavel { get; set; }
+    public string? NomeResponsavel { get; private set; }
 
-    public string? ContatoResponsavel { get; set; }
+    public string? ContatoResponsavel { get; private set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; private set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; private set; }
+
+    public ItemEntity(string nome, string descricao, string categoria, string localEncontro, DateTime dataEncontro, int statusId, string? nomeResponsavel, string? contatoResponsavel)
+    {
+        ValidateStatusId(statusId);
+        ValidateFoundDate(dataEncontro);
+
+        Nome = nome;
+        Descricao = descricao;
+        Categoria = categoria;
+        LocalEncontro = localEncontro;
+        DataEncontro = dataEncontro;
+        StatusId = statusId;
+        NomeResponsavel = nomeResponsavel;
+        ContatoResponsavel = contatoResponsavel;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    private void ValidateStatusId(int statusId)
+    {
+        if(!Enum.IsDefined(typeof(ItemStatus), statusId))
+        {
+            throw new ArgumentException("Status inválido.");
+        }
+    }
+
+    private void ValidateFoundDate(DateTime dataEncontro)
+    {
+        if(dataEncontro > DateTime.UtcNow)
+        {
+            throw new ArgumentException("Data de encontro não pode ser após a data atual.");
+        }
+    }
 }

@@ -24,13 +24,13 @@ public class ItemRepository : IItemRepository
                                category AS Categoria,
                                found_location AS LocalEncontro,
                                found_date AS DataEncontro,
-                               status AS Status,
+                               id_status AS StatusId,
                                person_who_found AS NomeResponsavel,
                                contact_who_found AS ContatoResponsavel,
                                created_at AS CreatedAt,
                                updated_at AS UpdatedAt
                            FROM tb_item
-                           WHERE status = 'ENCONTRADO'
+                           WHERE id_status = 10
                            ORDER BY id;
                            """;
 
@@ -49,13 +49,13 @@ public class ItemRepository : IItemRepository
                                category AS Categoria,
                                found_location AS LocalEncontro,
                                found_date AS DataEncontro,
-                               status AS Status,
+                               id_status AS StatusId,
                                person_who_found AS NomeResponsavel,
                                contact_who_found AS ContatoResponsavel,
                                created_at AS CreatedAt,
                                updated_at AS UpdatedAt
                            FROM tb_item
-                           WHERE status = 'PERDIDO'
+                           WHERE id_status = 20
                            ORDER BY id;
                            """;
 
@@ -67,8 +67,8 @@ public class ItemRepository : IItemRepository
     public async Task UploadFoundItemAsync(ItemEntity item)
     {
         var sql = """
-            INSERT INTO tb_item (name, description, category, found_location, found_date, status, person_who_found, contact_who_found)
-            VALUES (@Name, @Description, @Category, @FoundLocation, @FoundDate, @Status, @PersonWhoFound, @ContactWhoFound)
+            INSERT INTO tb_item (name, description, category, found_location, found_date, id_status, person_who_found, contact_who_found)
+            VALUES (@Name, @Description, @Category, @FoundLocation, @FoundDate, @StatusId, @PersonWhoFound, @ContactWhoFound)
             """;
 
         using var connection = _connectionFactory.CreateConnection();
@@ -80,19 +80,19 @@ public class ItemRepository : IItemRepository
             Category = item.Categoria,
             FoundLocation = item.LocalEncontro,
             FoundDate = item.DataEncontro,
-            Status = item.Status,
+            StatusId = item.StatusId,
             PersonWhoFound = item.NomeResponsavel,
             ContactWhoFound = item.ContatoResponsavel
         });
     }
 
-    public async Task UpdateItemStatusAsync(int Id, string Status)
+    public async Task UpdateItemStatusAsync(int Id, int StatusId)
     {
-        var sql = "UPDATE tb_item SET status = @Status WHERE id = @Id";
+        var sql = "UPDATE tb_item SET id_status = @StatusId WHERE id = @Id";
 
         using var connection = _connectionFactory.CreateConnection();
 
-        await connection.ExecuteAsync(sql, new { Id = Id, Status = Status });
+        await connection.ExecuteAsync(sql, new { Id = Id, StatusId = StatusId });
     }
 
     public async Task RemoveItemAsync(int Id)

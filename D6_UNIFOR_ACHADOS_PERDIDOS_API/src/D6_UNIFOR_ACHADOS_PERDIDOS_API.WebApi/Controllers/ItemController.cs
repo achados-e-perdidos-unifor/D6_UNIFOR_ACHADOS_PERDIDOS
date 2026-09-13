@@ -39,9 +39,9 @@ public class ItemController : ControllerBase
     }
 
     [HttpPut("UpdateItemStatus/{id}")]
-    public async Task<IActionResult> UpdateItemStatusAsync(int id, [FromBody] string status)
+    public async Task<IActionResult> UpdateItemStatusAsync(int id, [FromBody] int statusId)
     {
-        await _itemService.UpdateItemStatusAsync(id, status);
+        await _itemService.UpdateItemStatusAsync(id, statusId);
         return Ok();
     }
 
