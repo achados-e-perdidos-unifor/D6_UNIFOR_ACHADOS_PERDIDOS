@@ -16,10 +16,17 @@ public class ItemController : ControllerBase
         _itemService = itemService;
     }
 
-    [HttpGet("GetAllItems")]
-    public async Task<IActionResult> GetAllItemsAsync()
+    [HttpGet("ListFoundItems")]
+    public async Task<IActionResult> ListFoundItemsAsync()
     {
-        var items = await _itemService.GetAllItemsAsync();
+        var items = await _itemService.ListFoundItemsAsync();
+        return Ok(items);
+    }
+    
+    [HttpGet("ListLostItems")]
+    public async Task<IActionResult> ListLostItemsAsync()
+    {
+        var items = await _itemService.ListLostItemsAsync();
         return Ok(items);
     }
 }

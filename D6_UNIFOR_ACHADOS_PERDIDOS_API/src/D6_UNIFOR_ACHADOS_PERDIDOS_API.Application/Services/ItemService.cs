@@ -12,9 +12,15 @@ public class ItemService : IItemService
         _itemRepository = itemRepository;
     }
     
-    public async Task<IEnumerable<ItemEntity>> GetAllItemsAsync()
+    public async Task<IEnumerable<ItemEntity>> ListFoundItemsAsync()
     {
-        var items = await _itemRepository.GetAllItemsAsync();
+        var items = await _itemRepository.ListFoundItemsAsync();
+        return items;
+    }
+    
+    public async Task<IEnumerable<ItemEntity>> ListLostItemsAsync()
+    {
+        var items = await _itemRepository.ListLostItemsAsync();
         return items;
     }
 }
