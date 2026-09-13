@@ -1,3 +1,4 @@
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.DTOs;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Interfaces;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 
@@ -24,9 +25,21 @@ public class ItemService : IItemService
         return items;
     }
 
-    public async Task UploadFoundItemAsync(ItemEntity item)
+    public async Task UploadFoundItemAsync(UploadItemDto item)
     {
-        await _itemRepository.UploadFoundItemAsync(item);
+        var itemEntity = new ItemEntity
+        {
+            Nome = item.Nome,
+            Descricao = item.Descricao,
+            Categoria = item.Categoria,
+            LocalEncontro = item.LocalEncontro,
+            DataEncontro = item.DataEncontro,
+            Status = item.Status,
+            NomeResponsavel = item.NomeResponsavel,
+            ContatoResponsavel = item.ContatoResponsavel
+        };
+
+        await _itemRepository.UploadFoundItemAsync(itemEntity);
     }
 
     public async Task UpdateItemStatusAsync(int Id, string Status)

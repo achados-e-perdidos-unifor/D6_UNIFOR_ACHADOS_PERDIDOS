@@ -1,5 +1,5 @@
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Interfaces;
-using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.Controllers;
@@ -32,7 +32,7 @@ public class ItemController : ControllerBase
     }
 
     [HttpPost("UploadFoundItem")]
-    public async Task<IActionResult> UploadFoundItemAsync([FromBody] ItemEntity item)
+    public async Task<IActionResult> UploadFoundItemAsync([FromBody] UploadItemDto item)
     {
         await _itemService.UploadFoundItemAsync(item);
         return Ok();

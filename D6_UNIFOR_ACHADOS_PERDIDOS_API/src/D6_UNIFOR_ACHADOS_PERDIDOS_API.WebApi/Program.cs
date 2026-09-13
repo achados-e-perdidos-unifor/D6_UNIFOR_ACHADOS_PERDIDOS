@@ -31,6 +31,6 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.MapGet("/ping", () => "pong");
+app.MapGet("/Ping", () => "Pong");
 
 app.Run();

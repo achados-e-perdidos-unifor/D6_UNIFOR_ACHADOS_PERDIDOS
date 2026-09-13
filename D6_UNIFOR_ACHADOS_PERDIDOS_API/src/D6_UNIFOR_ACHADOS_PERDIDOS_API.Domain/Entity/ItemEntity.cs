@@ -2,7 +2,7 @@ namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 
 public class ItemEntity
 {
-    public long Id { get; set; }
+    public long? Id { get; set; }
 
     public string Nome { get; set; } = string.Empty;
 
@@ -20,7 +20,7 @@ public class ItemEntity
 
     public string? ContatoResponsavel { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }
