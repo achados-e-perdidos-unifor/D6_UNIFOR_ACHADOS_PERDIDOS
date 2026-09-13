@@ -197,7 +197,6 @@ docker-volumes/
 *.backup
 
 # Local database data
-data/
 database/data/
 
 # ============================================================

@@ -63,4 +63,44 @@ public class ItemRepository : IItemRepository
 
         return await connection.QueryAsync<ItemEntity>(sql);
     }
+
+    public async Task UploadFoundItemAsync(ItemEntity item)
+    {
+        var sql = """
+            INSERT INTO tb_item (name, description, category, found_location, found_date, status, person_who_found, contact_who_found)
+            VALUES (@Name, @Description, @Category, @FoundLocation, @FoundDate, @Status, @PersonWhoFound, @ContactWhoFound)
+            """;
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        await connection.ExecuteAsync(sql, new
+        {
+            Name = item.Nome,
+            Description = item.Descricao,
+            Category = item.Categoria,
+            FoundLocation = item.LocalEncontro,
+            FoundDate = item.DataEncontro,
+            Status = item.Status,
+            PersonWhoFound = item.NomeResponsavel,
+            ContactWhoFound = item.ContatoResponsavel
+        });
+    }
+
+    public async Task UpdateItemStatusAsync(int Id, string Status)
+    {
+        var sql = "UPDATE tb_item SET status = @Status WHERE id = @Id";
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        await connection.ExecuteAsync(sql, new { Id = Id, Status = Status });
+    }
+
+    public async Task RemoveItemAsync(int Id)
+    {
+        var sql = "DELETE FROM tb_item WHERE id = @Id";
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        await connection.ExecuteAsync(sql, new { Id = Id });
+    }
 }

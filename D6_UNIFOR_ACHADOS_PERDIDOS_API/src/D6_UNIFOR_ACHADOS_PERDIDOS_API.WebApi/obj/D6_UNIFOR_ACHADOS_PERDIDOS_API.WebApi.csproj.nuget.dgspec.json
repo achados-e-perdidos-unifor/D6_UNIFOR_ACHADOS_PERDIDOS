@@ -1,34 +1,40 @@
 {
   "format": 1,
   "restore": {
-    "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj": {}
+    "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj": {}
   },
   "projects": {
-    "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
+    "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj",
+        "projectUniqueName": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj",
         "projectName": "D6_UNIFOR_ACHADOS_PERDIDOS_API.Application",
-        "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj",
-        "packagesPath": "/Users/evaldo/.nuget/packages/",
-        "outputPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/obj/",
+        "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/evaldo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
-                "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj"
+              "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj"
               }
             }
           }
@@ -43,10 +49,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -64,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -342,27 +349,33 @@
         }
       }
     },
-    "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
+    "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj",
         "projectName": "D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain",
-        "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj",
-        "packagesPath": "/Users/evaldo/.nuget/packages/",
-        "outputPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/obj/",
+        "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/evaldo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -377,10 +390,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -398,7 +412,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -676,34 +690,40 @@
         }
       }
     },
-    "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj": {
+    "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj",
         "projectName": "D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure",
-        "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj",
-        "packagesPath": "/Users/evaldo/.nuget/packages/",
-        "outputPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/obj/",
+        "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/evaldo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
-                "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj"
+              "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
+                "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj"
               },
-              "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
-                "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj"
+              "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj"
               }
             }
           }
@@ -718,10 +738,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Dapper": {
@@ -753,7 +774,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1031,34 +1052,40 @@
         }
       }
     },
-    "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj": {
+    "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj",
         "projectName": "D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi",
-        "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj",
-        "packagesPath": "/Users/evaldo/.nuget/packages/",
-        "outputPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/obj/",
+        "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/evaldo/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
-                "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application/D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj"
+              "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj": {
+                "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.csproj"
               },
-              "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj": {
-                "projectPath": "/Users/evaldo/UNIFOR/D6_UNIFOR_ACHADOS_PERDIDOS/D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj"
+              "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\User\\UNIFOR\\D6_UNIFOR_ACHADOS_PERDIDOS\\D6_UNIFOR_ACHADOS_PERDIDOS_API\\src\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj"
               }
             }
           }
@@ -1073,10 +1100,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
@@ -1107,7 +1135,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.103/libexec/sdk/10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

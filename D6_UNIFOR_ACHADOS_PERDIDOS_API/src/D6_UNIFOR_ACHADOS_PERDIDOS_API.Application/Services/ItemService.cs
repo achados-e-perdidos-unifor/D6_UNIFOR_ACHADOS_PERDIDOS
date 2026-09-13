@@ -23,4 +23,19 @@ public class ItemService : IItemService
         var items = await _itemRepository.ListLostItemsAsync();
         return items;
     }
+
+    public async Task UploadFoundItemAsync(ItemEntity item)
+    {
+        await _itemRepository.UploadFoundItemAsync(item);
+    }
+
+    public async Task UpdateItemStatusAsync(int Id, string Status)
+    {
+        await _itemRepository.UpdateItemStatusAsync(Id, Status);
+    }
+
+    public async Task RemoveItemAsync(int Id)
+    {
+        await _itemRepository.RemoveItemAsync(Id);
+    }
 }

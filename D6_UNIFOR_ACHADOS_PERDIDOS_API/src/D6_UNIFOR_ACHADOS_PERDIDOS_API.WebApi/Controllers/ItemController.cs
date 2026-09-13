@@ -1,4 +1,5 @@
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Interfaces;
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.Controllers;
@@ -28,5 +29,26 @@ public class ItemController : ControllerBase
     {
         var items = await _itemService.ListLostItemsAsync();
         return Ok(items);
+    }
+
+    [HttpPost("UploadFoundItem")]
+    public async Task<IActionResult> UploadFoundItemAsync([FromBody] ItemEntity item)
+    {
+        await _itemService.UploadFoundItemAsync(item);
+        return Ok();
+    }
+
+    [HttpPut("UpdateItemStatus/{id}")]
+    public async Task<IActionResult> UpdateItemStatusAsync(int id, [FromBody] string status)
+    {
+        await _itemService.UpdateItemStatusAsync(id, status);
+        return Ok();
+    }
+
+    [HttpDelete("RemoveItem/{id}")]
+    public async Task<IActionResult> RemoveItemAsync(int id)
+    {
+        await _itemService.RemoveItemAsync(id);
+        return Ok();
     }
 }
