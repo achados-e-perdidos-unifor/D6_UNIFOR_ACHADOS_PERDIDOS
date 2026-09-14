@@ -13,16 +13,28 @@ public class ItemService : IItemService
     {
         _itemRepository = itemRepository;
     }
-    
+
+    public async Task<IEnumerable<ItemEntity>> ListAllItemsAsync()
+    {
+        var items = await _itemRepository.ListAllItemsAsync();
+        return items;
+    }
+
     public async Task<IEnumerable<ItemEntity>> ListFoundItemsAsync()
     {
         var items = await _itemRepository.ListFoundItemsAsync();
         return items;
     }
-    
+
     public async Task<IEnumerable<ItemEntity>> ListLostItemsAsync()
     {
         var items = await _itemRepository.ListLostItemsAsync();
+        return items;
+    }
+
+    public async Task<IEnumerable<ItemEntity>> ListReturnedItemsAsync()
+    {
+        var items = await _itemRepository.ListReturnedItemsAsync();
         return items;
     }
 

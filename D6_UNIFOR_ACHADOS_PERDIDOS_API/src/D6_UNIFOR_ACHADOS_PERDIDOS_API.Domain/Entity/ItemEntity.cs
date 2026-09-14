@@ -5,26 +5,18 @@ namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 public class ItemEntity
 {
     public long? Id { get; private set; }
-
     public string Nome { get; private set; }
-
     public string? Descricao { get; private set; }
-
     public string? Categoria { get; private set; }
-
     public string? LocalEncontro { get; private set; }
-
     public DateTime DataEncontro { get; private set; }
-
     public int StatusId { get; private set; }
-
     public string? NomeResponsavel { get; private set; }
-
     public string? ContatoResponsavel { get; private set; }
-
     public DateTime CreatedAt { get; private set; }
-
     public DateTime UpdatedAt { get; private set; }
+
+    protected ItemEntity() { }
 
     public ItemEntity(string nome, string descricao, string categoria, string localEncontro, DateTime dataEncontro, int statusId, string? nomeResponsavel, string? contatoResponsavel)
     {
@@ -43,7 +35,7 @@ public class ItemEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    private void ValidateStatusId(int statusId)
+    public void ValidateStatusId(int statusId)
     {
         if(!Enum.IsDefined(typeof(ItemStatus), statusId))
         {

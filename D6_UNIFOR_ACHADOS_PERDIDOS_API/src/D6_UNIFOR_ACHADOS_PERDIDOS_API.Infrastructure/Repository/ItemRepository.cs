@@ -14,6 +14,30 @@ public class ItemRepository : IItemRepository
         _connectionFactory = connectionFactory;
     }
 
+    public async Task<IEnumerable<ItemEntity>> ListAllItemsAsync()
+    {
+        const string sql = """
+                           SELECT
+                               id AS Id,
+                               name AS Nome,
+                               description AS Descricao,
+                               category AS Categoria,
+                               found_location AS LocalEncontro,
+                               found_date AS DataEncontro,
+                               id_status AS StatusId,
+                               person_who_found AS NomeResponsavel,
+                               contact_who_found AS ContatoResponsavel,
+                               created_at AS CreatedAt,
+                               updated_at AS UpdatedAt
+                           FROM tb_item
+                           ORDER BY id;
+                           """;
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        return await connection.QueryAsync<ItemEntity>(sql);
+    }
+
     public async Task<IEnumerable<ItemEntity>> ListFoundItemsAsync()
     {
         const string sql = """
@@ -56,6 +80,31 @@ public class ItemRepository : IItemRepository
                                updated_at AS UpdatedAt
                            FROM tb_item
                            WHERE id_status = 20
+                           ORDER BY id;
+                           """;
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        return await connection.QueryAsync<ItemEntity>(sql);
+    }
+
+    public async Task<IEnumerable<ItemEntity>> ListReturnedItemsAsync()
+    {
+        const string sql = """
+                           SELECT
+                               id AS Id,
+                               name AS Nome,
+                               description AS Descricao,
+                               category AS Categoria,
+                               found_location AS LocalEncontro,
+                               found_date AS DataEncontro,
+                               id_status AS StatusId,
+                               person_who_found AS NomeResponsavel,
+                               contact_who_found AS ContatoResponsavel,
+                               created_at AS CreatedAt,
+                               updated_at AS UpdatedAt
+                           FROM tb_item
+                           WHERE id_status = 30
                            ORDER BY id;
                            """;
 
