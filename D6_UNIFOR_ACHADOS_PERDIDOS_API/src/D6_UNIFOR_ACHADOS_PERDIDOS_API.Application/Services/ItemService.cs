@@ -56,11 +56,21 @@ public class ItemService : IItemService
 
     public async Task UpdateItemStatusAsync(int Id, int StatusId)
     {
-        await _itemRepository.UpdateItemStatusAsync(Id, StatusId);
+        var item = await _itemRepository.GetItemByIdAsync(Id);
+
+        if (item == null) throw new ArgumentException($"Item with Id {Id} not found.");
+
+        item.UpdateStatus(StatusId);
+
+        await _itemRepository.UpdateAsync(item);
     }
 
     public async Task RemoveItemAsync(int Id)
     {
+        var itemEntity = await _itemRepository.GetItemByIdAsync(Id);
+
+        if (itemEntity == null) throw new ArgumentException($"Item with Id {Id} not found.");
+
         await _itemRepository.RemoveItemAsync(Id);
     }
 }

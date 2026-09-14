@@ -35,7 +35,25 @@ public class ItemEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void ValidateStatusId(int statusId)
+    public void UpdateStatus(int statusId)
+    {
+        ValidateStatusId(statusId);
+
+        if (statusId == (int)ItemStatus.ENCONTRADO && StatusId == (int)ItemStatus.DEVOLVIDO)
+        {
+            throw new ArgumentException("Não é possível atualizar o status de um item devolvido para encontrado.");
+        }
+
+        if(statusId == (int)ItemStatus.PERDIDO && StatusId == (int)ItemStatus.DEVOLVIDO)
+        {
+            throw new ArgumentException("Não é possível atualizar o status de um item devolvido para perdido.");
+        }
+
+        StatusId = statusId;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    private void ValidateStatusId(int statusId)
     {
         if(!Enum.IsDefined(typeof(ItemStatus), statusId))
         {

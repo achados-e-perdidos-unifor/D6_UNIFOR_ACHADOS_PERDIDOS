@@ -113,6 +113,30 @@ public class ItemRepository : IItemRepository
         return await connection.QueryAsync<ItemEntity>(sql);
     }
 
+    public async Task<ItemEntity> GetItemByIdAsync(int id)
+    {
+        const string sql = """
+                           SELECT
+                               id AS Id,
+                               name AS Nome,
+                               description AS Descricao,
+                               category AS Categoria,
+                               found_location AS LocalEncontro,
+                               found_date AS DataEncontro,
+                               id_status AS StatusId,
+                               person_who_found AS NomeResponsavel,
+                               contact_who_found AS ContatoResponsavel,
+                               created_at AS CreatedAt,
+                               updated_at AS UpdatedAt
+                           FROM tb_item
+                           WHERE id = @Id
+                           """;
+
+        using var connection = _connectionFactory.CreateConnection();
+
+        return await connection.QuerySingleAsync<ItemEntity>(sql, new { Id = id });
+    }
+
     public async Task UploadFoundItemAsync(ItemEntity item)
     {
         var sql = """
@@ -135,13 +159,37 @@ public class ItemRepository : IItemRepository
         });
     }
 
-    public async Task UpdateItemStatusAsync(int Id, int StatusId)
+    public async Task UpdateAsync(ItemEntity item)
     {
-        var sql = "UPDATE tb_item SET id_status = @StatusId WHERE id = @Id";
+        const string sql = """
+                       UPDATE tb_item 
+                       SET name = @Nome,
+                           description = @Descricao,
+                           category = @Categoria,
+                           found_location = @LocalEncontro,
+                           found_date = @DataEncontro,
+                           id_status = @StatusId,
+                           person_who_found = @NomeResponsavel,
+                           contact_who_found = @ContatoResponsavel,
+                           updated_at = @UpdatedAt
+                       WHERE id = @Id
+                       """;
 
         using var connection = _connectionFactory.CreateConnection();
 
-        await connection.ExecuteAsync(sql, new { Id = Id, StatusId = StatusId });
+        await connection.ExecuteAsync(sql, new
+        {
+            Id = item.Id,
+            Nome = item.Nome,
+            Descricao = item.Descricao,
+            Categoria = item.Categoria,
+            LocalEncontro = item.LocalEncontro,
+            DataEncontro = item.DataEncontro,
+            StatusId = (int)item.StatusId,
+            NomeResponsavel = item.NomeResponsavel,
+            ContatoResponsavel = item.ContatoResponsavel,
+            UpdatedAt = item.UpdatedAt
+        });
     }
 
     public async Task RemoveItemAsync(int Id)
