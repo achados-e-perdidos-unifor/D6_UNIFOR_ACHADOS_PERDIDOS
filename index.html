@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achados e Perdidos - UNIFOR</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome para ícones -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-box-archive me-2"></i>Achados e Perdidos - UNIFOR</a>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newItemModal">
+                <i class="fa-solid fa-plus me-1"></i> Novo Item
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Alertas -->
+        <div id="alertContainer"></div>
+
+        <!-- Navegação por Abas -->
+        <ul class="nav nav-tabs mb-3" id="itemTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListAllItems')">Todos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="found-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListFoundItems')">Encontrados</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="lost-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListLostItems')">Perdidos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListReturnedItems')">Devolvidos</button>
+            </li>
+        </ul>
+
+        <!-- Tabela de Dados -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Local</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Responsável</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <tr>
+                                <td colspan="8" class="text-center py-4">Carregando itens...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Item -->
+    <div class="modal fade" id="newItemModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fa-solid fa-circle-plus me-2"></i>Cadastrar Novo Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newItemForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome do Item *</label>
+                                <input type="text" class="form-control" id="nome" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Categoria</label>
+                                <input type="text" class="form-control" id="categoria" placeholder="Ex: Eletrônicos, Documentos">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Descrição</label>
+                                <textarea class="form-control" id="descricao" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Local do Encontro</label>
+                                <input type="text" class="form-control" id="localEncontro" placeholder="Ex: Bloco D - Sala 201">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Data do Encontro *</label>
+                                <input type="datetime-local" class="form-control" id="dataEncontro" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Status *</label>
+                                <select class="form-select" id="statusId" required>
+                                    <option value="10">ENCONTRADO (10)</option>
+                                    <option value="20">PERDIDO (20)</option>
+                                    <option value="30">DEVOLVIDO (30)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Nome do Responsável</label>
+                                <input type="text" class="form-control" id="nomeResponsavel">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Contato do Responsável</label>
+                                <input type="text" class="form-control" id="contatoResponsavel">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="createItem()">Salvar Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Altere caso sua API rode em outra porta ou URL via Docker/Ambiente
+        const API_URL = 'http://localhost:5109/api/Item'; 
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadItems('ListAllItems');
+            
+            // Definir data padrão no input como o momento atual
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('dataEncontro').value = now.toISOString().slice(0,16);
+        });
+
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('alertContainer');
+            container.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            setTimeout(() => { container.innerHTML = ''; }, 4000);
+        }
+
+        async function loadItems(endpoint) {
+            const tbody = document.getElementById('itemsTableBody');
+            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4">Carregando...</td></tr>`;
+
+            try {
+                const response = await fetch(`${API_URL}/${endpoint}`);
+                if (!response.ok) throw new Error('Erro ao buscar dados da API.');
+                
+                const items = await response.json();
+                
+                if (items.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Nenhum item encontrado.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                items.forEach(item => {
+                    // Mapeamento visual do StatusId baseado no seu banco/enum
+                    let badgeClass = 'bg-secondary';
+                    let statusText = item.statusId;
+                    if (item.statusId === 10) { badgeClass = 'bg-primary'; statusText = 'ENCONTRADO'; }
+                    else if (item.statusId === 20) { badgeClass = 'bg-warning text-dark'; statusText = 'PERDIDO'; }
+                    else if (item.statusId === 30) { badgeClass = 'bg-success'; statusText = 'DEVOLVIDO'; }
+
+                    const dataFormatada = item.dataEncontro ? new Date(item.dataEncontro).toLocaleString('pt-BR') : '-';
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.id || item.Id}</td>
+                            <td><strong>${item.nome || item.Nome}</strong><br><small class="text-muted">${item.descricao || item.Descricao || ''}</small></td>
+                            <td>${item.categoria || item.Categoria || '-'}</td>
+                            <td>${item.localEncontro || item.LocalEncontro || '-'}</td>
+                            <td>${dataFormatada}</td>
+                            <td><span class="badge ${badgeClass}">${statusText}</span></td>
+                            <td>${item.nomeResponsavel || item.NomeResponsavel || '-'}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-primary me-1" title="Mudar Status" onclick="promptUpdateStatus(${item.id || item.Id}, ${item.statusId || item.StatusId})">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" title="Remover" onclick="deleteItem(${item.id || item.Id})">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Falha ao conectar com a API. Verifique se o backend está rodando.</td></tr>`;
+            }
+        }
+
+        async function createItem() {
+            const dataDto = {
+                nome: document.getElementById('nome').value,
+                descricao: document.getElementById('descricao').value,
+                categoria: document.getElementById('categoria').value,
+                localEncontro: document.getElementById('localEncontro').value,
+                dataEncontro: document.getElementById('dataEncontro').value ? new Date(document.getElementById('dataEncontro').value).toISOString() : new Date().toISOString(),
+                statusId: parseInt(document.getElementById('statusId').value),
+                nomeResponsavel: document.getElementById('nomeResponsavel').value,
+                contatoResponsavel: document.getElementById('contatoResponsavel').value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/UploadFoundItem`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataDto)
+                });
+
+                if (!response.ok) throw new Error('Erro ao cadastrar item.');
+
+                showAlert('Item cadastrado com sucesso!');
+                bootstrap.Modal.getInstance(document.getElementById('newItemModal')).hide();
+                document.getElementById('newItemForm').reset();
+                loadItems('ListAllItems');
+            } catch (error) {
+                console.error(error);
+                showAlert('Erro ao cadastrar item. Verifique os campos.', 'danger');
+            }
+        }
+
+        async function promptUpdateStatus(id, currentStatus) {
+            const novoStatus = prompt(`Digite o novo Status ID para o item ${id}:\n10 - ENCONTRADO\n20 - PERDIDO\n30 - DEVOLVIDO`, currentStatus);
+            if (novoStatus === null) return;
+
+            const statusInt = parseInt(novoStatus);
+            if (isNaN(statusInt)) {
+                alert('Digite um número válido.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/UpdateItemStatus/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(statusInt) // Envia o int direto conforme o [FromBody] int statusId
+                });
+
+                if (!response.ok) {
+                    const errText = await response.text();
+                    throw new Error(errText || 'Erro ao atualizar status');
+                }
+
+                showAlert('Status atualizado com sucesso!');
+                loadItems('ListAllItems');
+            } catch (error) {
+                console.error(error);
+                showAlert('Erro ao atualizar status. Verifique as regras de negócio.', 'danger');
+            }
+        }
+
+        async function deleteItem(id) {
+            if (!confirm(`Deseja realmente remover o item ID ${id}?`)) return;
+
+            try {
+                const response = await fetch(`${API_URL}/RemoveItem/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) throw new Error('Erro ao remover item.');
+
+                showAlert('Item removido com sucesso!');
+                loadItems('ListAllItems');
+            } catch (error) {
+                console.error(error);
+                showAlert('Erro ao remover item.', 'danger');
+            }
+        }
+    </script>
+</body>
+</html>
