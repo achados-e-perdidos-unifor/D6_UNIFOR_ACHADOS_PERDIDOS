@@ -294,7 +294,7 @@ e execução na aba Actions; saídas geradas por IA são tratadas como hipótese
 | -------- | ----- | ---------------------------------------- | ---------------------------------- | ------ |
 | E1       | 10/09 | Cultura DevOps, IA no SDLC e diagnóstico | Diagnóstico e proposta priorizada  | ✅ Concluído |
 | E2       | 11/09 | Git, colaboração, qualidade e IA         | Repositório, PR e tag inicial      | 🔄 Em andamento |
-| E3       | 12/09 | CI, testes automatizados e IA            | Pipeline de CI com testes          | 🔄 Em andamento (falta execução remota) |
+| E3       | 12/09 | CI, testes automatizados e IA            | Pipeline de CI com testes          | ✅
 | E4       | 24/09 | Containers, integração e troubleshooting | Execução via Docker/Compose        | ✅ Concluído (validado localmente) |
 | E5       | 25/09 | CD, configuração, segurança e governança | Release, rollback e segurança      | 🔄 Em andamento (secrets e publicação pendentes) |
 | E6       | 26/09 | Observabilidade, IA aplicada e projeto   | Observabilidade e defesa final     | ⬜ Pendente |
