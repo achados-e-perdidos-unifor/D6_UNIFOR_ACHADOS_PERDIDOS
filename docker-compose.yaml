@@ -24,6 +24,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=app_db;Username=app_user;Password=app_password"
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: app_db
