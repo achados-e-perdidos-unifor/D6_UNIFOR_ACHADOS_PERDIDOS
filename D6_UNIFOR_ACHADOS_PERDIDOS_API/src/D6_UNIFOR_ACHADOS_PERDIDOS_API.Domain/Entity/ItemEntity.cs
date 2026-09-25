@@ -44,7 +44,7 @@ public class ItemEntity
             throw new ArgumentException("Não é possível atualizar o status de um item devolvido para encontrado.");
         }
 
-        if(statusId == (int)ItemStatus.PERDIDO && StatusId == (int)ItemStatus.DEVOLVIDO)
+        if (statusId == (int)ItemStatus.PERDIDO && StatusId == (int)ItemStatus.DEVOLVIDO)
         {
             throw new ArgumentException("Não é possível atualizar o status de um item devolvido para perdido.");
         }
@@ -55,7 +55,7 @@ public class ItemEntity
 
     private void ValidateStatusId(int statusId)
     {
-        if(!Enum.IsDefined(typeof(ItemStatus), statusId))
+        if (!Enum.IsDefined(typeof(ItemStatus), statusId))
         {
             throw new ArgumentException("Status inválido.");
         }
@@ -63,7 +63,7 @@ public class ItemEntity
 
     private void ValidateFoundDate(DateTime dataEncontro)
     {
-        if(dataEncontro > DateTime.UtcNow)
+        if (dataEncontro > DateTime.UtcNow)
         {
             throw new ArgumentException("Data de encontro não pode ser após a data atual.");
         }

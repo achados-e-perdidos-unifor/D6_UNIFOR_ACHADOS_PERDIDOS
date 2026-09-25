@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks();
 
 builder.Services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
@@ -36,5 +37,6 @@ app.UseCors("AllowAll");
 
 app.MapControllers();
 app.MapGet("/Ping", () => "Pong");
+app.MapHealthChecks("/health");
 
 app.Run();

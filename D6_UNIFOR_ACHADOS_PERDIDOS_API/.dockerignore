@@ -1,0 +1,10 @@
+.git
+.vs
+.vscode
+.env*
+**/bin/
+**/obj/
+**/TestResults/
+**/*Tests.cs
+**/*.Tests/
+**/appsettings.*.Local.json

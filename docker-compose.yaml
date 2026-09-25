@@ -1,44 +1,48 @@
 services:
   postgres:
-    image: postgres:17
+    image: postgres:17@sha256:d74eeac9a635390a49bc21bd49fccd973de707e2a53a76ac49b552b8712ec46f
     container_name: postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: app_db
-      POSTGRES_USER: app_user
-      POSTGRES_PASSWORD: app_password
+      POSTGRES_DB: ${POSTGRES_DB:-app_db}
+      POSTGRES_USER: ${POSTGRES_USER:-app_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app_password}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   backend:
+    image: ${BACKEND_IMAGE:-achados-perdidos-api:local}
     build:
       context: ./D6_UNIFOR_ACHADOS_PERDIDOS_API
       dockerfile: Dockerfile
     container_name: achados-perdidos-api
     restart: unless-stopped
-    depends_on:
-      - postgres
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT:-8080}:8080"
     environment:
-      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=app_db;Username=app_user;Password=app_password"
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_NAME: app_db
-      DB_USER: app_user
-      DB_PASSWORD: app_password
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=${POSTGRES_DB:-app_db};Username=${POSTGRES_USER:-app_user};Password=${POSTGRES_PASSWORD:-app_password}"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   frontend:
-    image: nginx:alpine
+    image: nginx:alpine@sha256:1ed1b0e1d7652937d6cbdaf4018c7b6fc009a7dd6c3047351e2eddda745de43f
     container_name: achados-perdidos-frontend
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
-      - "3000:80"
+      - "${FRONTEND_PORT:-3000}:80"
     volumes:
       - ./index.html:/usr/share/nginx/html/index.html:ro
 

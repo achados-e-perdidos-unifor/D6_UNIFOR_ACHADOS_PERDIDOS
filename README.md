@@ -68,20 +68,32 @@ repositório antes do gatilho de produção.
 - Docker Compose
 - Swagger / OpenAPI (Swashbuckle)
 
+### Arquitetura
+
+```text
+Navegador -- HTTP :3000 --> Nginx (index.html)
+  |
+  +-- HTTP :8080 --> ASP.NET Core API -- PostgreSQL :5432 --> volume postgres_data
+```
+
 ## 4. Estrutura do repositório
 
 ```
 index.html                     # interface estática servida pelo Nginx
+docker-compose.yaml            # PostgreSQL, API e frontend
+.env.example                   # valores de laboratório para configuração local
+.github/workflows/ci-cd.yml    # pipeline CI/CD
 D6_UNIFOR_ACHADOS_PERDIDOS_API/
-  Dockerfile                   # build e imagem de runtime da API
+  Dockerfile                   # build multi-stage e imagem de runtime não-root
+  .dockerignore                # exclui arquivos locais e de teste do contexto
   src/
     ...Domain/          # entidades e regras de domínio
     ...Application/     # casos de uso
     ...Infrastructure/  # acesso a dados e serviços externos
     ...WebApi/          # controllers e ponto de entrada
+  tests/                # testes automatizados de domínio
 database/
   init/01-create-tables.sql   # schema, status e livros iniciais
-docker-compose.yaml
 ```
 
 A separação em quatro camadas foi uma decisão técnica do grupo para manter o domínio isolado da
@@ -92,23 +104,62 @@ organizada para a gente e para o código.
 
 ### 5.1 Pré-requisitos
 
-- .NET SDK 10
 - Docker Engine + Compose (ou Docker Desktop)
+- .NET SDK 10 (para executar ou testar a API sem Docker)
 
-### 5.2 Subir a aplicação completa com Docker Compose
+### 5.2 Rodar a API localmente
 
-```bash
-docker compose up --build -d
+Suba um PostgreSQL local (ou use `docker compose up -d postgres`) e configure a connection string.
+Exemplo no PowerShell:
+
+```powershell
+$env:ConnectionStrings__DefaultConnection = "Host=localhost;Port=5432;Database=app_db;Username=app_user;Password=app_password"
+dotnet run --project D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi
 ```
 
-O Compose inicia PostgreSQL, API e frontend. A API usa o serviço `postgres` como host do banco e
-fica disponível na porta `8080`; o frontend é servido pelo Nginx na porta `3000`.
+Perfis de ambiente (`launchSettings.json`):
+
+| Perfil | Ambiente    | URL                   |
+| ------ | ----------- | --------------------- |
+| DEV    | Development | http://localhost:5109 |
+| HML    | Homolog     | http://localhost:5110 |
+| PRD    | Production  | http://localhost:5111 |
+
+A connection string local é configurada pela variável `ConnectionStrings__DefaultConnection`,
+que mapeia para a chave .NET `ConnectionStrings:DefaultConnection`.
+
+Build da solution:
+
+```bash
+dotnet build D6_UNIFOR_ACHADOS_PERDIDOS_API/D6_UNIFOR_ACHADOS_PERDIDOS_API.slnx
+```
+
+### 5.3 Subir a aplicação completa com Docker Compose
+
+```bash
+docker compose up --build --wait
+```
+
+O comando funciona com os valores de exemplo incluídos no Compose. Opcionalmente, copie
+`.env.example` para `.env` e ajuste os valores de desenvolvimento antes de subir os serviços:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+`.env` está excluído do Git; não coloque segredos reais no `.env.example`. O Compose inicia
+PostgreSQL, API e frontend. O banco precisa passar no health check antes da API iniciar, e a API
+usa o nome do serviço `postgres` para conectar ao banco.
 
 | Serviço | URL |
 | ------- | --- |
 | Frontend | http://localhost:3000 |
 | API | http://localhost:8080 |
+| Health check da API | http://localhost:8080/health |
 | Swagger | http://localhost:8080/swagger |
+
+As portas padrão são configuráveis: `POSTGRES_PORT`, `BACKEND_PORT` e `FRONTEND_PORT`. A porta
+`5432` do PostgreSQL é publicada para permitir desenvolvimento da API fora do Docker.
 
 Para acompanhar os serviços e encerrá-los:
 
@@ -139,9 +190,10 @@ Registros iniciais:
 
 O contato não é preenchido para esses exemplos.
 
-### 5.3 Banco de dados
+### 5.4 Banco de dados
 
-O PostgreSQL expõe a porta `5432` e cria o banco e o usuário abaixo:
+O PostgreSQL persiste os dados no volume nomeado `postgres_data` e usa os valores padrão de
+laboratório abaixo:
 
 | Item     | Valor          |
 | -------- | -------------- |
@@ -150,38 +202,79 @@ O PostgreSQL expõe a porta `5432` e cria o banco e o usuário abaixo:
 | Senha    | `app_password` |
 
 > Credenciais de laboratório, definidas em texto claro no `docker-compose.yaml`. Antes do Encontro 5
-> (segurança e governança) elas precisam sair do versionamento e virar variáveis de ambiente.
+> (segurança e governança) substitua os valores padrão por secrets apropriados. Em produção, não
+> reutilize estas credenciais de exemplo.
 
 O script cria `tb_item_status` e `tb_item`; os status são `PERDIDO`, `ENCONTRADO` e `DEVOLVIDO`.
 
-### 5.4 Rodar a API localmente
+### 5.5 Executar a imagem publicada
 
-```bash
-dotnet run --project D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi
+Depois que o CD publicar a imagem pública no Docker Hub, substitua `<usuario-dockerhub>` pelo
+namespace da equipe. No PowerShell:
+
+```powershell
+$env:BACKEND_IMAGE = "seu-usuario/achados-perdidos-api:latest"
+docker pull seu-usuario/achados-perdidos-api:latest
+docker compose up --wait
 ```
 
-Perfis de ambiente (`launchSettings.json`):
+Substitua `seu-usuario` pelo namespace público real da equipe no Docker Hub.
 
-| Perfil | Ambiente    | URL                   |
-| ------ | ----------- | --------------------- |
-| DEV    | Development | http://localhost:5109 |
-| HML    | Homolog     | http://localhost:5110 |
-| PRD    | Production  | http://localhost:5111 |
+O Compose continua iniciando PostgreSQL e frontend localmente, mas usa a imagem publicada para a
+API. Para conferir uma tag rastreável específica, use o SHA do commit no lugar de `latest`.
 
-```bash
-dotnet run --project D6_UNIFOR_ACHADOS_PERDIDOS_API/src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi --launch-profile HML
-```
+### 5.6 Testes automatizados
 
-Ao executar a API fora do Docker, configure `ConnectionStrings:DefaultConnection` para apontar para
-`localhost:5432`. Dentro do Compose, essa configuração é fornecida com o host `postgres`.
-
-### 5.5 Build
+Rode os testes de domínio com um único comando:
 
 ```bash
-dotnet build D6_UNIFOR_ACHADOS_PERDIDOS_API/D6_UNIFOR_ACHADOS_PERDIDOS_API.slnx
+dotnet test D6_UNIFOR_ACHADOS_PERDIDOS_API/D6_UNIFOR_ACHADOS_PERDIDOS_API.slnx --configuration Release
 ```
 
-### 5.6 Endpoints disponíveis
+### 5.7 Pipeline CI/CD
+
+O workflow [ci-cd.yml](.github/workflows/ci-cd.yml) roda em push e Pull Request para `main`. O CI
+restaura, verifica formatação com `dotnet format`, testa a solution, constrói os serviços, aguarda
+os health checks e faz uma chamada de smoke test à API e ao banco. Em push para `main`, salva a imagem que passou no CI como artefato; o
+job de CD depende do CI, baixa essa mesma imagem e publica tags `latest` e SHA no Docker Hub.
+Execuções ficam na [aba Actions do GitHub](https://github.com/achados-e-perdidos-unifor/D6_UNIFOR_ACHADOS_PERDIDOS/actions).
+
+Para habilitar o CD, crie no Docker Hub o repositório público `achados-perdidos-api` e configure os
+secrets `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN` no repositório GitHub. A imagem ainda precisa ser
+publicada e testada com `docker pull` sem autenticação antes da entrega.
+
+### 5.8 Variáveis de ambiente
+
+| Variável | Finalidade | Exemplo de laboratório |
+| -------- | ---------- | ---------------------- |
+| `POSTGRES_DB` | Nome do banco | `app_db` |
+| `POSTGRES_USER` | Usuário do banco | `app_user` |
+| `POSTGRES_PASSWORD` | Senha do banco | `app_password` (trocar fora do laboratório) |
+| `POSTGRES_PORT` | Porta do PostgreSQL publicada no host | `5432` |
+| `BACKEND_PORT` | Porta HTTP da API no host | `8080` |
+| `FRONTEND_PORT` | Porta HTTP do frontend no host | `3000` |
+| `BACKEND_IMAGE` | Imagem Docker da API | `achados-perdidos-api:local` |
+| `ConnectionStrings__DefaultConnection` | Connection string ao executar a API localmente | `Host=localhost;Port=5432;Database=app_db;Username=app_user;Password=app_password` |
+
+Os valores acima são apenas exemplos locais. `.env` é ignorado pelo Git; secrets de CI/CD devem
+ser armazenados em GitHub Actions Secrets.
+
+### 5.9 Uso de IA
+
+IA foi usada para rascunhar o Dockerfile, o Compose, os dados de exemplo, testes e documentação.
+Durante a validação, a connection string foi ajustada para resolver o nome de serviço `postgres`,
+e os testes/build foram executados localmente. O workflow e a publicação ainda precisam de revisão
+e execução na aba Actions; saídas geradas por IA são tratadas como hipóteses até serem verificadas.
+
+### 5.10 Troubleshooting
+
+| Sintoma | Causa comum e solução |
+| ------- | --------------------- |
+| API não conecta ao banco no Compose | Use `postgres` como host dentro da rede Docker; `localhost` aponta para o próprio container. O Compose aguarda o health check do banco antes de iniciar a API. |
+| Scripts SQL não rodam depois de reiniciar | O diretório `database/init` é executado somente na criação do volume. Para aplicar uma mudança no banco existente, use o comando `psql` da seção 5.3. |
+| Porta 3000, 5432 ou 8080 já está ocupada | Altere `FRONTEND_PORT`, `POSTGRES_PORT` ou `BACKEND_PORT` no `.env` e suba novamente com `docker compose up --build --wait`. |
+
+### Endpoints disponíveis
 
 | Método | Rota | Descrição |
 | ------ | ---- | --------- |
@@ -201,9 +294,9 @@ dotnet build D6_UNIFOR_ACHADOS_PERDIDOS_API/D6_UNIFOR_ACHADOS_PERDIDOS_API.slnx
 | -------- | ----- | ---------------------------------------- | ---------------------------------- | ------ |
 | E1       | 10/09 | Cultura DevOps, IA no SDLC e diagnóstico | Diagnóstico e proposta priorizada  | ✅ Concluído |
 | E2       | 11/09 | Git, colaboração, qualidade e IA         | Repositório, PR e tag inicial      | 🔄 Em andamento |
-| E3       | 12/09 | CI, testes automatizados e IA            | Pipeline de CI com testes          | ⬜ Pendente |
-| E4       | 24/09 | Containers, integração e troubleshooting | Execução via Docker/Compose        | ⬜ Pendente |
-| E5       | 25/09 | CD, configuração, segurança e governança | Release, rollback e segurança      | ⬜ Pendente |
+| E3       | 12/09 | CI, testes automatizados e IA            | Pipeline de CI com testes          | 🔄 Em andamento (falta execução remota) |
+| E4       | 24/09 | Containers, integração e troubleshooting | Execução via Docker/Compose        | ✅ Concluído (validado localmente) |
+| E5       | 25/09 | CD, configuração, segurança e governança | Release, rollback e segurança      | 🔄 Em andamento (secrets e publicação pendentes) |
 | E6       | 26/09 | Observabilidade, IA aplicada e projeto   | Observabilidade e defesa final     | ⬜ Pendente |
 
 ## 7. Checklist de entregáveis
@@ -213,19 +306,20 @@ Artefatos mínimos exigidos pela disciplina e seu estado atual neste repositóri
 | Artefato                            | Estado |
 | ----------------------------------- | ------ |
 | README de execução                  | ✅ |
-| Commits e PRs                       | 🔄 |
-| Tags / releases                     | ⬜ |
+| Repositório público                 | ✅ |
+| Commits e PRs (GitHub Flow)          | 🔄 |
+| Tags / releases                     | ⬜ (nenhuma release publicada) |
 | Decisões técnicas documentadas      | 🔄 |
-| Pipeline de CI versionado           | ⬜ |
-| Testes automatizados                | ⬜ |
-| Artefato / imagem publicada         | ⬜ |
-| Dockerfile                          | ✅ |
-| `docker-compose.yaml` da aplicação  | ✅ (API, PostgreSQL e frontend) |
-| Health check                        | ⬜ (existe `/Ping`, ainda não configurado no Compose) |
+| Pipeline CI/CD versionado           | ✅ (execução remota ainda pendente) |
+| Testes automatizados                | ✅ (6 testes de domínio) |
+| Imagem pública publicada            | ⬜ (aguarda secrets e publicação no Docker Hub) |
+| Dockerfile                          | ✅ (multi-stage, digests fixados, não-root, health check) |
+| `.dockerignore`                     | ✅ |
+| `docker-compose.yaml`               | ✅ (API, PostgreSQL, frontend, volume e health checks) |
 | Release notes e plano de rollback   | ⬜ |
-| Segurança mínima (segredos, scan)   | ⬜ |
+| Segurança mínima (segredos, scan)   | 🔄 (configuração local fora do Git; falta configurar secrets e scan) |
 | Logs, métricas e incidente simulado | ⬜ |
-| Registro crítico de uso de IA       | 🔄 |
+| Registro crítico de uso de IA       | ✅ (seção 5.10) |
 
 Distribuição da avaliação final: projeto funcional 25%, pipeline CI 25%, containers/Compose 20%,
 entrega e operação 15%, diagnóstico DevOps 10%, apresentação final 5%.

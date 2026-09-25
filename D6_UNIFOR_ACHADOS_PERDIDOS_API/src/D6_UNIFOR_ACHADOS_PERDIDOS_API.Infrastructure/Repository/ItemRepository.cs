@@ -62,7 +62,7 @@ public class ItemRepository : IItemRepository
 
         return await connection.QueryAsync<ItemEntity>(sql);
     }
-    
+
     public async Task<IEnumerable<ItemEntity>> ListLostItemsAsync()
     {
         const string sql = """
