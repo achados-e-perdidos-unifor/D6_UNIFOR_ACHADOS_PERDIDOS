@@ -29,3 +29,39 @@ CREATE TABLE IF NOT EXISTS tb_item (
         FOREIGN KEY (id_status) 
         REFERENCES tb_item_status (id)
 );
+
+-- 4. Dados iniciais: livros de programação encontrados na biblioteca
+INSERT INTO public.tb_item (
+    name,
+    description,
+    category,
+    found_location,
+    found_date,
+    id_status,
+    person_who_found,
+    created_at,
+    updated_at
+)
+SELECT
+    seed.name,
+    'Livro de programação encontrado na biblioteca',
+    'Livros',
+    'Biblioteca',
+    CURRENT_TIMESTAMP,
+    10,
+    seed.person_who_found,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+FROM (VALUES
+    ('Implementando Domain-Driven Design', 'Evaldo Rodrigues'),
+    ('Código Limpo', 'Alan'),
+    ('Padrões de Projeto', 'Helder Lima'),
+    ('Fundamentos de Arquitetura de Software', 'Levi Alves'),
+    ('Engenharia de Software Moderna', 'Murilo Aragão')
+) AS seed(name, person_who_found)
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM public.tb_item AS existing
+    WHERE existing.name = seed.name
+      AND existing.person_who_found = seed.person_who_found
+);
