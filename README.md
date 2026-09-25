@@ -213,12 +213,12 @@ Depois que o CD publicar a imagem pública no Docker Hub, substitua `<usuario-do
 namespace da equipe. No PowerShell:
 
 ```powershell
-$env:BACKEND_IMAGE = "seu-usuario/achados-perdidos-api:latest"
-docker pull seu-usuario/achados-perdidos-api:latest
+$env:BACKEND_IMAGE = "evaaldo/achados-perdidos-api:latest"
+docker pull evaaldo/achados-perdidos-api:latest
 docker compose up --wait
 ```
 
-Substitua `seu-usuario` pelo namespace público real da equipe no Docker Hub.
+Substitua `evaaldo` pelo namespace público real da equipe no Docker Hub.
 
 O Compose continua iniciando PostgreSQL e frontend localmente, mas usa a imagem publicada para a
 API. Para conferir uma tag rastreável específica, use o SHA do commit no lugar de `latest`.
