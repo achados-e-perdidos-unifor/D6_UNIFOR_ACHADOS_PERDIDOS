@@ -4,62 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achados e Perdidos - UNIFOR</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome para ícones -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <style>
+        :root {
+            --unifor-blue: #004b87;
+            --unifor-light: #f4f7f9;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--unifor-light);
+            color: var(--text-main);
+        }
+
+        /* Navbar customizada */
+        .navbar-custom {
+            background-color: var(--unifor-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Botões padronizados */
+        .btn {
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background-color: #0066cc;
+            border-color: #0066cc;
+        }
+        .btn-primary:hover {
+            background-color: #0052a3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        /* Card e Tabela */
+        .card-custom {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(149, 157, 165, 0.1);
+            background: #fff;
+            overflow: hidden;
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem;
+        }
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            color: var(--text-main);
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+        .table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Badges Suaves */
+        .badge-custom {
+            padding: 0.4em 0.8em;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+        .badge-encontrado { background-color: #e0f2fe; color: #0284c7; }
+        .badge-perdido { background-color: #ffedd5; color: #c2410c; }
+        .badge-devolvido { background-color: #dcfce7; color: #15803d; }
+
+        /* Navegação em Abas (Pills) */
+        .nav-pills {
+            background-color: #fff;
+            padding: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: inline-flex;
+            gap: 0.5rem;
+        }
+        .nav-pills .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 0.5rem 1.25rem;
+            transition: all 0.3s;
+        }
+        .nav-pills .nav-link:hover {
+            background-color: #f1f5f9;
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--unifor-blue);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 75, 135, 0.3);
+        }
+
+        /* Inputs e Modais */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem 1rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            border-bottom: 1px solid #f1f5f9;
+            background-color: #f8fafc;
+            border-radius: 16px 16px 0 0;
+        }
+        .modal-footer {
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* Animação de fade in nas linhas da tabela */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-row {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-5">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-box-archive me-2"></i>Achados e Perdidos - UNIFOR</a>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newItemModal">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fa-solid fa-box-archive fs-4 me-3"></i>
+                <div>
+                    <span class="d-block lh-1">Achados e Perdidos</span>
+                    <small class="fw-normal text-white-50" style="font-size: 0.75rem;">Universidade de Fortaleza</small>
+                </div>
+            </a>
+            <button class="btn btn-light shadow-sm text-primary fw-semibold rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#newItemModal">
                 <i class="fa-solid fa-plus me-1"></i> Novo Item
             </button>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container pb-5">
         <!-- Alertas -->
-        <div id="alertContainer"></div>
+        <div id="alertContainer" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055; min-width: 300px;"></div>
 
         <!-- Navegação por Abas -->
-        <ul class="nav nav-tabs mb-3" id="itemTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListAllItems')">Todos</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="found-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListFoundItems')">Encontrados</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="lost-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListLostItems')">Perdidos</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListReturnedItems')">Devolvidos</button>
-            </li>
-        </ul>
+        <div class="d-flex justify-content-center mb-4">
+            <ul class="nav nav-pills" id="itemTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListAllItems')">Todos</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="found-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListFoundItems')">Encontrados</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="lost-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListLostItems')">Perdidos</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#itemsContent" type="button" onclick="loadItems('ListReturnedItems')">Devolvidos</button>
+                </li>
+            </ul>
+        </div>
 
         <!-- Tabela de Dados -->
-        <div class="card shadow-sm">
-            <div class="card-body">
+        <div class="card card-custom">
+            <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-dark">
+                    <table class="table align-middle text-nowrap">
+                        <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
+                                <th class="ps-4">ID</th>
+                                <th>Item & Detalhes</th>
                                 <th>Categoria</th>
                                 <th>Local</th>
-                                <th>Data</th>
+                                <th>Data do Registro</th>
                                 <th>Status</th>
                                 <th>Responsável</th>
-                                <th class="text-end">Ações</th>
+                                <th class="text-end pe-4">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="itemsTableBody">
                             <tr>
-                                <td colspan="8" class="text-center py-4">Carregando itens...</td>
+                                <td colspan="8" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Carregando...</span>
+                                    </div>
+                                    <div class="mt-2 text-muted">Buscando itens...</div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -70,57 +234,60 @@
 
     <!-- Modal Novo Item -->
     <div class="modal fade" id="newItemModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><i class="fa-solid fa-circle-plus me-2"></i>Cadastrar Novo Item</h5>
+                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-circle-plus text-primary me-2"></i>Cadastrar Novo Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <form id="newItemForm">
-                        <div class="row g-3">
+                        <div class="row g-4">
                             <div class="col-md-6">
-                                <label class="form-label">Nome do Item *</label>
-                                <input type="text" class="form-control" id="nome" required>
+                                <label class="form-label fw-semibold text-secondary">Nome do Item <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nome" placeholder="Ex: Caderno Tilibra" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Categoria</label>
+                                <label class="form-label fw-semibold text-secondary">Categoria</label>
                                 <input type="text" class="form-control" id="categoria" placeholder="Ex: Eletrônicos, Documentos">
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Descrição</label>
-                                <textarea class="form-control" id="descricao" rows="2"></textarea>
+                                <label class="form-label fw-semibold text-secondary">Descrição</label>
+                                <textarea class="form-control" id="descricao" rows="2" placeholder="Descreva detalhes como cor, marca, marcas de uso..."></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Local do Encontro</label>
-                                <input type="text" class="form-control" id="localEncontro" placeholder="Ex: Bloco D - Sala 201">
+                                <label class="form-label fw-semibold text-secondary">Local do Encontro</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fa-solid fa-location-dot text-muted"></i></span>
+                                    <input type="text" class="form-control border-start-0 ps-0" id="localEncontro" placeholder="Ex: Bloco D - Sala 201">
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Data do Encontro *</label>
+                                <label class="form-label fw-semibold text-secondary">Data do Ocorrido <span class="text-danger">*</span></label>
                                 <input type="datetime-local" class="form-control" id="dataEncontro" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Status *</label>
+                                <label class="form-label fw-semibold text-secondary">Status <span class="text-danger">*</span></label>
                                 <select class="form-select" id="statusId" required>
-                                    <option value="10">ENCONTRADO (10)</option>
-                                    <option value="20">PERDIDO (20)</option>
-                                    <option value="30">DEVOLVIDO (30)</option>
+                                    <option value="10">ENCONTRADO</option>
+                                    <option value="20">PERDIDO</option>
+                                    <option value="30">DEVOLVIDO</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Nome do Responsável</label>
-                                <input type="text" class="form-control" id="nomeResponsavel">
+                                <label class="form-label fw-semibold text-secondary">Responsável</label>
+                                <input type="text" class="form-control" id="nomeResponsavel" placeholder="Nome do aluno/func.">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Contato do Responsável</label>
-                                <input type="text" class="form-control" id="contatoResponsavel">
+                                <label class="form-label fw-semibold text-secondary">Contato</label>
+                                <input type="text" class="form-control" id="contatoResponsavel" placeholder="(00) 00000-0000">
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" onclick="createItem()">Salvar Item</button>
+                <div class="modal-footer p-3 bg-light">
+                    <button type="button" class="btn btn-white text-muted border" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary px-4" onclick="createItem()">Salvar Item</button>
                 </div>
             </div>
         </div>
@@ -144,10 +311,12 @@
 
         function showAlert(message, type = 'success') {
             const container = document.getElementById('alertContainer');
+            // Usando toast style notification
             container.innerHTML = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <div class="alert alert-${type} alert-dismissible fade show shadow-sm rounded-pill px-4" role="alert">
+                    <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'} me-2"></i>
                     ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <button type="button" class="btn-close" style="padding: 1rem;" data-bs-dismiss="alert"></button>
                 </div>
             `;
             setTimeout(() => { container.innerHTML = ''; }, 4000);
@@ -155,7 +324,15 @@
 
         async function loadItems(endpoint) {
             const tbody = document.getElementById('itemsTableBody');
-            tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4">Carregando...</td></tr>`;
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Carregando...</span>
+                        </div>
+                        <div class="mt-2 text-muted fw-semibold">Atualizando lista...</div>
+                    </td>
+                </tr>`;
 
             try {
                 const response = await fetch(`${API_URL}/${endpoint}`);
@@ -164,36 +341,60 @@
                 const items = await response.json();
                 
                 if (items.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Nenhum item encontrado.</td></tr>`;
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-folder-open fs-1 text-light mb-3 d-block"></i>
+                                Nenhum item encontrado nesta categoria.
+                            </td>
+                        </tr>`;
                     return;
                 }
 
                 tbody.innerHTML = '';
-                items.forEach(item => {
-                    // Mapeamento visual do StatusId baseado no seu banco/enum
-                    let badgeClass = 'bg-secondary';
-                    let statusText = item.statusId;
-                    if (item.statusId === 10) { badgeClass = 'bg-primary'; statusText = 'ENCONTRADO'; }
-                    else if (item.statusId === 20) { badgeClass = 'bg-warning text-dark'; statusText = 'PERDIDO'; }
-                    else if (item.statusId === 30) { badgeClass = 'bg-success'; statusText = 'DEVOLVIDO'; }
+                items.forEach((item, index) => {
+                    let badgeClass = '';
+                    let statusText = '';
+                    
+                    if (item.statusId === 10) { 
+                        badgeClass = 'badge-encontrado'; 
+                        statusText = '<i class="fa-solid fa-check-circle me-1"></i> Encontrado'; 
+                    } else if (item.statusId === 20) { 
+                        badgeClass = 'badge-perdido'; 
+                        statusText = '<i class="fa-solid fa-magnifying-glass me-1"></i> Perdido'; 
+                    } else if (item.statusId === 30) { 
+                        badgeClass = 'badge-devolvido'; 
+                        statusText = '<i class="fa-solid fa-handshake me-1"></i> Devolvido'; 
+                    } else {
+                        badgeClass = 'bg-secondary text-white';
+                        statusText = 'Indefinido';
+                    }
 
-                    const dataFormatada = item.dataEncontro ? new Date(item.dataEncontro).toLocaleString('pt-BR') : '-';
+                    const dataFormatada = item.dataEncontro ? new Date(item.dataEncontro).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '-';
+                    const descricao = item.descricao || item.Descricao || 'Sem descrição adicional';
+                    const categoria = item.categoria || item.Categoria || '-';
+                    const local = item.localEncontro || item.LocalEncontro || '-';
 
                     tbody.innerHTML += `
-                        <tr>
-                            <td>${item.id || item.Id}</td>
-                            <td><strong>${item.nome || item.Nome}</strong><br><small class="text-muted">${item.descricao || item.Descricao || ''}</small></td>
-                            <td>${item.categoria || item.Categoria || '-'}</td>
-                            <td>${item.localEncontro || item.LocalEncontro || '-'}</td>
-                            <td>${dataFormatada}</td>
-                            <td><span class="badge ${badgeClass}">${statusText}</span></td>
-                            <td>${item.nomeResponsavel || item.NomeResponsavel || '-'}</td>
-                            <td class="text-end">
-                                <button class="btn btn-sm btn-outline-primary me-1" title="Mudar Status" onclick="promptUpdateStatus(${item.id || item.Id}, ${item.statusId || item.StatusId})">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                        <tr class="fade-row" style="animation-delay: ${index * 0.03}s">
+                            <td class="ps-4 fw-semibold text-muted">#${item.id || item.Id}</td>
+                            <td>
+                                <div class="fw-bold text-dark">${item.nome || item.Nome}</div>
+                                <div class="text-muted small text-truncate" style="max-width: 200px;" title="${descricao}">${descricao}</div>
+                            </td>
+                            <td><span class="text-secondary fw-medium">${categoria}</span></td>
+                            <td>${local}</td>
+                            <td class="text-secondary"><i class="fa-regular fa-calendar me-2 opacity-50"></i>${dataFormatada}</td>
+                            <td><span class="badge-custom ${badgeClass}">${statusText}</span></td>
+                            <td>
+                                <div class="fw-medium">${item.nomeResponsavel || item.NomeResponsavel || '-'}</div>
+                            </td>
+                            <td class="text-end pe-4">
+                                <button class="btn btn-sm btn-light text-primary me-2 shadow-none border" title="Mudar Status" onclick="promptUpdateStatus(${item.id || item.Id}, ${item.statusId || item.StatusId})">
+                                    <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-danger" title="Remover" onclick="deleteItem(${item.id || item.Id})">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button class="btn btn-sm btn-light text-danger shadow-none border" title="Remover" onclick="deleteItem(${item.id || item.Id})">
+                                    <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
                         </tr>
@@ -201,7 +402,13 @@
                 });
             } catch (error) {
                 console.error(error);
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Falha ao conectar com a API. Verifique se o backend está rodando.</td></tr>`;
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="text-center py-5 text-danger">
+                            <i class="fa-solid fa-triangle-exclamation fs-3 mb-2 d-block"></i>
+                            Falha ao conectar com a API. Verifique se o backend está rodando.
+                        </td>
+                    </tr>`;
             }
         }
 
@@ -217,6 +424,12 @@
                 contatoResponsavel: document.getElementById('contatoResponsavel').value
             };
 
+            // Validação simples
+            if (!dataDto.nome) {
+                showAlert('Por favor, preencha o nome do item.', 'danger');
+                return;
+            }
+
             try {
                 const response = await fetch(`${API_URL}/UploadFoundItem`, {
                     method: 'POST',
@@ -230,6 +443,10 @@
                 bootstrap.Modal.getInstance(document.getElementById('newItemModal')).hide();
                 document.getElementById('newItemForm').reset();
                 loadItems('ListAllItems');
+                
+                // Retorna aba "Todos" para estado ativo se cadastrar algo
+                document.getElementById('all-tab').click();
+
             } catch (error) {
                 console.error(error);
                 showAlert('Erro ao cadastrar item. Verifique os campos.', 'danger');
@@ -237,12 +454,12 @@
         }
 
         async function promptUpdateStatus(id, currentStatus) {
-            const novoStatus = prompt(`Digite o novo Status ID para o item ${id}:\n10 - ENCONTRADO\n20 - PERDIDO\n30 - DEVOLVIDO`, currentStatus);
+            const novoStatus = prompt(`Digite o código do Novo Status (Item #${id}):\n\n10 - ENCONTRADO\n20 - PERDIDO\n30 - DEVOLVIDO\n`, currentStatus);
             if (novoStatus === null) return;
 
             const statusInt = parseInt(novoStatus);
-            if (isNaN(statusInt)) {
-                alert('Digite um número válido.');
+            if (isNaN(statusInt) || ![10, 20, 30].includes(statusInt)) {
+                alert('Código inválido. Digite 10, 20 ou 30.');
                 return;
             }
 
@@ -250,16 +467,16 @@
                 const response = await fetch(`${API_URL}/UpdateItemStatus/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(statusInt) // Envia o int direto conforme o [FromBody] int statusId
+                    body: JSON.stringify(statusInt)
                 });
 
-                if (!response.ok) {
-                    const errText = await response.text();
-                    throw new Error(errText || 'Erro ao atualizar status');
-                }
+                if (!response.ok) throw new Error(await response.text() || 'Erro ao atualizar status');
 
-                showAlert('Status atualizado com sucesso!');
-                loadItems('ListAllItems');
+                showAlert('Status do item atualizado!');
+                
+                // Recarrega a aba atual
+                const activeTab = document.querySelector('.nav-pills .nav-link.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+                loadItems(activeTab);
             } catch (error) {
                 console.error(error);
                 showAlert('Erro ao atualizar status. Verifique as regras de negócio.', 'danger');
@@ -267,7 +484,7 @@
         }
 
         async function deleteItem(id) {
-            if (!confirm(`Deseja realmente remover o item ID ${id}?`)) return;
+            if (!confirm(`Excluir permanentemente o item #${id}?\n\nEsta ação não poderá ser desfeita.`)) return;
 
             try {
                 const response = await fetch(`${API_URL}/RemoveItem/${id}`, {
@@ -276,11 +493,12 @@
 
                 if (!response.ok) throw new Error('Erro ao remover item.');
 
-                showAlert('Item removido com sucesso!');
-                loadItems('ListAllItems');
+                showAlert('Item removido do sistema.');
+                const activeTab = document.querySelector('.nav-pills .nav-link.active').getAttribute('onclick').match(/'([^']+)'/)[1];
+                loadItems(activeTab);
             } catch (error) {
                 console.error(error);
-                showAlert('Erro ao remover item.', 'danger');
+                showAlert('Erro ao tentar remover o item.', 'danger');
             }
         }
     </script>
