@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achados e Perdidos - UNIFOR</title>
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome para ícones -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
@@ -178,10 +175,8 @@
     </nav>
 
     <div class="container pb-5">
-        <!-- Alertas -->
         <div id="alertContainer" class="position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055; min-width: 300px;"></div>
 
-        <!-- Navegação por Abas -->
         <div class="d-flex justify-content-center mb-4">
             <ul class="nav nav-pills" id="itemTabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -199,7 +194,6 @@
             </ul>
         </div>
 
-        <!-- Tabela de Dados -->
         <div class="card card-custom">
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -232,7 +226,6 @@
         </div>
     </div>
 
-    <!-- Modal Novo Item -->
     <div class="modal fade" id="newItemModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -293,17 +286,14 @@
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Altere caso sua API rode em outra porta ou URL via Docker/Ambiente
         const API_URL = 'http://localhost:8080/api/Item'; 
 
         document.addEventListener("DOMContentLoaded", () => {
             loadItems('ListAllItems');
             
-            // Definir data padrão no input como o momento atual
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             document.getElementById('dataEncontro').value = now.toISOString().slice(0,16);
@@ -311,7 +301,6 @@
 
         function showAlert(message, type = 'success') {
             const container = document.getElementById('alertContainer');
-            // Usando toast style notification
             container.innerHTML = `
                 <div class="alert alert-${type} alert-dismissible fade show shadow-sm rounded-pill px-4" role="alert">
                     <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation'} me-2"></i>
@@ -424,7 +413,6 @@
                 contatoResponsavel: document.getElementById('contatoResponsavel').value
             };
 
-            // Validação simples
             if (!dataDto.nome) {
                 showAlert('Por favor, preencha o nome do item.', 'danger');
                 return;
@@ -444,7 +432,6 @@
                 document.getElementById('newItemForm').reset();
                 loadItems('ListAllItems');
                 
-                // Retorna aba "Todos" para estado ativo se cadastrar algo
                 document.getElementById('all-tab').click();
 
             } catch (error) {
@@ -474,7 +461,6 @@
 
                 showAlert('Status do item atualizado!');
                 
-                // Recarrega a aba atual
                 const activeTab = document.querySelector('.nav-pills .nav-link.active').getAttribute('onclick').match(/'([^']+)'/)[1];
                 loadItems(activeTab);
             } catch (error) {
