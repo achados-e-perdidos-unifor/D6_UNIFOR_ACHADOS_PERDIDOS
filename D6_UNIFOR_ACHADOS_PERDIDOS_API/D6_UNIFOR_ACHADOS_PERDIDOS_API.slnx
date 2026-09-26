@@ -4,6 +4,8 @@
     <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.csproj" />
     <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure/D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj" />
     <Project Path="src/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi/D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
     <Project Path="tests/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Tests/D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Tests.csproj" />
   </Folder>
 </Solution>

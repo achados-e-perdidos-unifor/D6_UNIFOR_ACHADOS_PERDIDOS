@@ -2,7 +2,7 @@ using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Entity;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Enums;
 using Xunit;
 
-namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Tests;
+namespace D6_UNIFOR_ACHADOS_PERDIDOS_API.Domain.Tests.Entity;
 
 public class ItemEntityTests
 {
