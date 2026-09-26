@@ -291,6 +291,26 @@
     <script>
         const API_URL = 'http://localhost:8080/api/Item'; 
 
+        async function getErrorMessage(response, fallbackMessage) {
+            try {
+                const contentType = response.headers.get('content-type') || '';
+                if (contentType.includes('application/json')) {
+                    const payload = await response.json();
+                    if (payload?.error) return payload.error;
+                    if (payload?.message) return payload.message;
+                    if (typeof payload === 'string') return payload;
+                    if (payload?.title) return payload.title;
+                }
+
+                const text = await response.text();
+                if (text) return text;
+            } catch {
+                // Ignora erro de leitura do corpo da resposta e usa fallback
+            }
+
+            return fallbackMessage;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             loadItems('ListAllItems');
             
@@ -325,7 +345,10 @@
 
             try {
                 const response = await fetch(`${API_URL}/${endpoint}`);
-                if (!response.ok) throw new Error('Erro ao buscar dados da API.');
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'Erro ao buscar dados da API.');
+                    throw new Error(errorMessage);
+                }
                 
                 const items = await response.json();
                 
@@ -395,7 +418,7 @@
                     <tr>
                         <td colspan="8" class="text-center py-5 text-danger">
                             <i class="fa-solid fa-triangle-exclamation fs-3 mb-2 d-block"></i>
-                            Falha ao conectar com a API. Verifique se o backend está rodando.
+                            ${error.message || 'Falha ao conectar com a API. Verifique se o backend está rodando.'}
                         </td>
                     </tr>`;
             }
@@ -425,7 +448,10 @@
                     body: JSON.stringify(dataDto)
                 });
 
-                if (!response.ok) throw new Error('Erro ao cadastrar item.');
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'Erro ao cadastrar item.');
+                    throw new Error(errorMessage);
+                }
 
                 showAlert('Item cadastrado com sucesso!');
                 bootstrap.Modal.getInstance(document.getElementById('newItemModal')).hide();
@@ -436,7 +462,7 @@
 
             } catch (error) {
                 console.error(error);
-                showAlert('Erro ao cadastrar item. Verifique os campos.', 'danger');
+                showAlert(error.message || 'Erro ao cadastrar item. Verifique os campos.', 'danger');
             }
         }
 
@@ -457,7 +483,10 @@
                     body: JSON.stringify(statusInt)
                 });
 
-                if (!response.ok) throw new Error(await response.text() || 'Erro ao atualizar status');
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'Erro ao atualizar status.');
+                    throw new Error(errorMessage);
+                }
 
                 showAlert('Status do item atualizado!');
                 
@@ -465,7 +494,7 @@
                 loadItems(activeTab);
             } catch (error) {
                 console.error(error);
-                showAlert('Erro ao atualizar status. Verifique as regras de negócio.', 'danger');
+                showAlert(error.message || 'Erro ao atualizar status. Verifique as regras de negócio.', 'danger');
             }
         }
 
@@ -477,14 +506,17 @@
                     method: 'DELETE'
                 });
 
-                if (!response.ok) throw new Error('Erro ao remover item.');
+                if (!response.ok) {
+                    const errorMessage = await getErrorMessage(response, 'Erro ao remover item.');
+                    throw new Error(errorMessage);
+                }
 
                 showAlert('Item removido do sistema.');
                 const activeTab = document.querySelector('.nav-pills .nav-link.active').getAttribute('onclick').match(/'([^']+)'/)[1];
                 loadItems(activeTab);
             } catch (error) {
                 console.error(error);
-                showAlert('Erro ao tentar remover o item.', 'danger');
+                showAlert(error.message || 'Erro ao tentar remover o item.', 'danger');
             }
         }
     </script>
