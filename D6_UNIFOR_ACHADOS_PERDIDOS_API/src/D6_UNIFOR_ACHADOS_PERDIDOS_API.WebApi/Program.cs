@@ -2,6 +2,7 @@ using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Interfaces;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Application.Services;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.Data;
 using D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.Repository;
+using D6_UNIFOR_ACHADOS_PERDIDOS_API.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IItemService, ItemService>();
 
 var app = builder.Build();
+
+app.UseErrorHandling();
 
 app.MapOpenApi();
 app.UseSwagger();

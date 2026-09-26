@@ -16,4 +16,8 @@
     <ProjectReference Include="..\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure\D6_UNIFOR_ACHADOS_PERDIDOS_API.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
+
 </Project>
