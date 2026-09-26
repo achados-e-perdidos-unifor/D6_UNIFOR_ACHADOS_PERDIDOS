@@ -304,9 +304,7 @@
 
                 const text = await response.text();
                 if (text) return text;
-            } catch {
-                // Ignora erro de leitura do corpo da resposta e usa fallback
-            }
+            } catch { }
 
             return fallbackMessage;
         }
